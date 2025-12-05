@@ -1,3 +1,4 @@
+import { UserType } from "@/types/user";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -9,7 +10,7 @@ export async function GET() {
 
     const user = data.results[0];
 
-    const formattedUser = {
+    const formattedUser: UserType = {
       name: `${user.name.first} ${user.name.last}`,
       email: user.email,
       avatar: user.picture.thumbnail,

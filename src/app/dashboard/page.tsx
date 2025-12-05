@@ -2,11 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Cookie from "js-cookie";
+import { useAuth } from "@/hooks/useAuth";
+import { UserType } from "@/types/user";
+import { Button } from "@/components/Ui/button";
 
 export default function Dashboard() {
-  const [user, setUser] = useState<any>();
-  const router = useRouter()
+  const [user, setUser] = useState<UserType | null>(null);
+  const router = useRouter();
+  const { logout } = useAuth();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -14,9 +17,8 @@ export default function Dashboard() {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    Cookie.remove("user");
-    router.push("/")
+    logout();
+    router.push("/login");
   };
 
   if (!user) return <p>Loading...</p>;
@@ -24,15 +26,12 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen p-5">
       <div className="flex justify-between">
-        <h1 className="text-3xl font-semibold text-primary">
+        <h1 className="text-3xl font-semibold text-blue-500">
           welcome , {user.name}
         </h1>
-        <button
-          className="px-6 py-2 rounded font-semibold bg-danger text-white"
-          onClick={handleLogout}
-        >
+        <Button variant="destructive" onClick={handleLogout}>
           Logout
-        </button>
+        </Button>
       </div>
       <div className="flex flex-col items-center gap-4 mt-6">
         <img

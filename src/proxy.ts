@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { nextUrl, cookies } = request;
 
   const isLoggedIn = cookies.get("user")?.value;
@@ -10,7 +10,7 @@ export function middleware(request: NextRequest) {
 
   if (protectedPaths.includes(nextUrl.pathname)) {
     if (!isLoggedIn) {
-      return NextResponse.redirect(new URL("/" , request.url));
+      return NextResponse.redirect(new URL("/login", request.url));
     }
   }
 
