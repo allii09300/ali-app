@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/Ui/button";
 import { Input } from "@/components/Ui/input";
+import { Label } from "@/components/Ui/label";
 import { useAuth } from "@/hooks/useAuth";
 import { validateIranPhone } from "@/lib/validators/phone";
 import { UserType } from "@/types/user";
@@ -71,11 +72,10 @@ export default function Login() {
         onSubmit={handleSubmit}
         className="flex flex-col justify-center w-full max-w-sm p-4 my-auto"
       >
-        <label className="mb-1 text-xl font-semibold text-gray-700">
-          Phone number:
-        </label>
+        <Label className="mb-2 text-xl" htmlFor="phoneNum">Phone number:</Label>
         <Input
           type="text"
+          id="phoneNum"
           placeholder="For example 0912..."
           value={phoneNumber}
           onChange={handleChange}
